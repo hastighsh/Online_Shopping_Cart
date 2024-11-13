@@ -59,7 +59,7 @@ const Cart = () => {
                     <div className="cart-items mb-6">
                         {cartItems.map(item => (
                             <div key={item.id} className="cart-item flex justify-between items-center border-b py-4">
-                                <div className="flex items-center">
+                                <div className="flex items-center flex-grow">
                                     <img src={item.image} alt={item.name} className="w-16 h-16 object-cover mr-4" />
                                     <div>
                                         <h3 className="text-lg font-semibold">{item.name}</h3>
@@ -81,7 +81,7 @@ const Cart = () => {
                                         +
                                     </button>
                                 </div>
-                                <div className="remove-item">
+                                <div className="remove-item ml-4">
                                     <button
                                         onClick={() => removeItem(item.id)}
                                         className="bg-red-500 text-white px-4 py-2 rounded"
