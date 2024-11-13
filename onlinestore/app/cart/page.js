@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const sampleItems = [
     {
@@ -27,6 +28,7 @@ const sampleItems = [
 
 const Cart = () => {
     const [cartItems, setCartItems] = useState(sampleItems);
+    const router = useRouter();
 
     const updateQuantity = (id, newQuantity) => {
         if (newQuantity < 1) return;
@@ -43,6 +45,10 @@ const Cart = () => {
         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0).toFixed(2);
     };
 
+    const handleContinueShopping = () => {
+        router.push('/catalog');
+    };
+
     return (
         <div className="cart-container p-4">
             <h1 className="text-3xl font-bold text-center mb-6">Shopping Cart</h1>
@@ -50,7 +56,6 @@ const Cart = () => {
                 <p className="text-center text-gray-600">Your shopping cart is currently empty.</p>
             ) : (
                 <div>
-                    {/* Cart Items */}
                     <div className="cart-items mb-6">
                         {cartItems.map(item => (
                             <div key={item.id} className="cart-item flex justify-between items-center border-b py-4">
@@ -87,17 +92,13 @@ const Cart = () => {
                             </div>
                         ))}
                     </div>
-
-                    {/* Total Price */}
                     <div className="total-price text-right mb-6">
                         <h2 className="text-xl font-semibold">Total: ${calculateTotal()}</h2>
                     </div>
-
-                    {/* Cart Actions */}
                     <div className="cart-actions flex justify-between">
                         <button
                             className="bg-blue-500 text-white px-4 py-2 rounded"
-                            onClick={() => alert('Continue shopping functionality to be implemented')}
+                            onClick={handleContinueShopping}
                         >
                             Continue Shopping
                         </button>
