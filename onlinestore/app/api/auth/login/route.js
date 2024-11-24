@@ -24,15 +24,19 @@ export async function POST(request) {
       });
     }
 
-    // Generate a JWT token
-    const token = sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    });
-
-    // Send the token back to the client
-    return new Response(JSON.stringify({ token }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json' },
+    // Generate a JWT token with the user's email
+    const token = sign(
+        { userId: user.id, email: user.email },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: '1h',
+        }
+      );
+  
+      // Send the token back to the client
+      return new Response(JSON.stringify({ token }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
     console.error('Login error:', error);

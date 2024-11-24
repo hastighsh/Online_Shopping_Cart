@@ -18,7 +18,6 @@ export default function Login({ onLoginSuccess }) {
     event.preventDefault();
 
     try {
-      // Send a POST request to your login API endpoint
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -35,8 +34,8 @@ export default function Login({ onLoginSuccess }) {
           onLoginSuccess(); // Update authentication state in parent component
         }
 
-        // Redirect the user to the dashboard
-        router.push('/catalog');
+        // Redirect the user to the home page or previous page
+        router.push('/');
       } else {
         // Handle errors by displaying the error message
         setErrorMessage(data.error || 'Login failed. Please try again.');
@@ -50,7 +49,7 @@ export default function Login({ onLoginSuccess }) {
   return (
     <div className='flex flex-col flex-1 justify-center items-center gap-4'>
       <h3 className={'text-4xl sm:text-5xl md:text-6xl ' + fugaz.className}>
-        Log in / Register
+        Log In
       </h3>
       <form onSubmit={handleSubmit} className='flex flex-col items-center gap-4'>
         <input
@@ -84,4 +83,6 @@ export default function Login({ onLoginSuccess }) {
       </div>
     </div>
   );
+
+  
 }
