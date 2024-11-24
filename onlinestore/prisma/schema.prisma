@@ -14,10 +14,65 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String
-  email     String   @unique
-  password  String
-  // Add other fields as needed
+  id                Int              @id @default(autoincrement())
+  username          String
+  email             String           @unique
+  password          String
+  shippingAddressId Int?
+  shippingAddress   Address?         @relation("UserShippingAddress", fields: [shippingAddressId], references: [id])
+  creditCardId      Int?
+  creditCard        CreditCardInfo?  @relation("UserCreditCard", fields: [creditCardId], references: [id])
+  orders            Order[]
   @@map("users")
+}
+
+model Address {
+  id                Int               @id @default(autoincrement())
+  street            String
+  city              String
+  province             String
+  postalCode        String
+  country           String
+  users             User[]            @relation("UserShippingAddress")
+  creditCards       CreditCardInfo[]  @relation("CreditCardBillingAddress")
+}
+
+model CreditCardInfo {
+  id                Int               @id @default(autoincrement())
+  cardHolder        String
+  cardLast4         String
+  cardType          String
+  expiration        DateTime
+  billingAddressId  Int
+  billingAddress    Address           @relation("CreditCardBillingAddress", fields: [billingAddressId], references: [id])
+  users             User[]            @relation("UserCreditCard")
+}
+
+model Order {
+  id          Int       @id @default(autoincrement())
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  items       OrderItem[]
+  totalAmount Float
+  status      String
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  orderId   Int
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+  price     Float
+}
+
+model Product {
+  id          Int         @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  orderItems  OrderItem[]
 }
