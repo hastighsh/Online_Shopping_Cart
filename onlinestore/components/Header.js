@@ -1,36 +1,19 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Fugaz_One } from 'next/font/google';
-import { jwtDecode } from 'jwt-decode';
+import { AuthContext } from '@/AuthContext'; // Import the AuthContext
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
 
 export default function Header() {
   const router = useRouter();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userEmail, setUserEmail] = useState('');
-
-  useEffect(() => {
-    // Check if token exists in localStorage
-    const token = localStorage.getItem('token');
-    if (token) {
-      setIsAuthenticated(true);
-      // Decode the token to get user information
-      const decodedToken = jwtDecode(token);
-      setUserEmail(decodedToken.email);
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, []);
+  const { isAuthenticated, userEmail, logout } = useContext(AuthContext);
 
   const handleLogout = () => {
-    // Remove the token from localStorage
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-    // Redirect to the home page or login page
+    logout();
     router.push('/');
   };
 
@@ -48,11 +31,16 @@ export default function Header() {
           Cart
         </Link>
         {isAuthenticated ? (
-          <div className="relative">
-            {/* Profile button */}
+          <div className="flex items-center gap-2">
             <Link href="/profile" className="text-[#F67280] hover:underline">
-              Profile
+              {userEmail}
             </Link>
+            <button
+              onClick={handleLogout}
+              className="text-[#F67280] hover:underline"
+            >
+              Logout
+            </button>
           </div>
         ) : (
           <Link href="/login" className="text-[#F67280] hover:underline">

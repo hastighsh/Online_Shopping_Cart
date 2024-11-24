@@ -1,31 +1,27 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { jwtDecode } from 'jwt-decode';
+import { AuthContext } from '@/AuthContext'; // Import AuthContext
 
 export default function Profile() {
   const router = useRouter();
-  const [userEmail, setUserEmail] = useState('');
+  const { isAuthenticated, userEmail, logout } = useContext(AuthContext);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      // Decode the token to get user information
-      const decodedToken = jwtDecode(token);
-      setUserEmail(decodedToken.email);
-    } else {
-      // If no token, redirect to login
+    if (!isAuthenticated) {
       router.push('/login');
     }
-  }, [router]);
+  }, [isAuthenticated, router]);
 
   const handleLogout = () => {
-    // Remove the token from localStorage
-    localStorage.removeItem('token');
-    // Redirect to the home page or login page
+    logout();
     router.push('/');
   };
+
+  if (!isAuthenticated) {
+    return null; // Or a loading indicator
+  }
 
   return (
     <div className="flex flex-col items-center justify-center gap-4">

@@ -1,6 +1,9 @@
+// layout.js
+
 import { Fugaz_One, Inter } from "next/font/google";
 import '/styles/globals.css';
-import Header from '@/components/Header'; // Import the Header component
+import Header from '@/components/Header';
+import { AuthProvider } from '@/AuthContext'; // Import the AuthProvider
 
 const inter = Inter({ subsets: ["latin"] });
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
@@ -25,10 +28,11 @@ export default function RootLayout({ children }) {
           inter.className
         }
       >
-        <Header />
-        {/* This will add a header to all children pages */}
-        {children}
-        {footer}
+        <AuthProvider>
+          <Header />
+          {children}
+          {footer}
+        </AuthProvider>
       </body>
     </html>
   );

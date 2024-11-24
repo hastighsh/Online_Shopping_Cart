@@ -1,15 +1,17 @@
 "use client";
 
 import { Fugaz_One } from 'next/font/google';
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Button from './Button';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { AuthContext } from '@/AuthContext'; // Import AuthContext
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
 
-export default function Login({ onLoginSuccess }) {
+export default function Login() {
   const router = useRouter();
+  const { login } = useContext(AuthContext); // Use the login function from context
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -18,6 +20,7 @@ export default function Login({ onLoginSuccess }) {
     event.preventDefault();
 
     try {
+      // Send a POST request to your login API endpoint
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -28,11 +31,8 @@ export default function Login({ onLoginSuccess }) {
 
       if (response.ok) {
         const token = data.token;
-        localStorage.setItem('token', token); // Store the token in localStorage
-
-        if (onLoginSuccess) {
-          onLoginSuccess(); // Update authentication state in parent component
-        }
+        // Use the login function from context
+        login(token);
 
         // Redirect the user to the home page or previous page
         router.push('/');
