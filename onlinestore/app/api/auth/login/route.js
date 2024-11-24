@@ -2,6 +2,7 @@
 
 import prisma from '@/prisma/prisma';
 import { sign } from 'jsonwebtoken';
+import bcrypt from 'bcryptjs';
 
 export async function POST(request) {
   try {
@@ -16,8 +17,9 @@ export async function POST(request) {
       });
     }
 
-    // Compare passwords directly (not recommended)
-    if (password !== user.password) {
+    // Compare passwords using bcrypt
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
       return new Response(JSON.stringify({ error: 'Invalid email or password' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },
@@ -26,17 +28,17 @@ export async function POST(request) {
 
     // Generate a JWT token with the user's email
     const token = sign(
-        { userId: user.id, email: user.email },
-        process.env.JWT_SECRET,
-        {
-          expiresIn: '1h',
-        }
-      );
-  
-      // Send the token back to the client
-      return new Response(JSON.stringify({ token }), {
-        status: 200,
-        headers: { 'Content-Type': 'application/json' },
+      { userId: user.id, email: user.email },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '1h',
+      }
+    );
+
+    // Send the token back to the client
+    return new Response(JSON.stringify({ token }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
     console.error('Login error:', error);
