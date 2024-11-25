@@ -1,3 +1,5 @@
+// api/user/profile/route.js
+
 import { NextResponse } from 'next/server';
 import prisma from '@/prisma/prisma';
 import { verifyToken } from '@/util/auth';
@@ -40,12 +42,46 @@ export async function GET(request) {
     // Exclude sensitive fields
     delete user.password;
 
-    return NextResponse.json(user);
+    // Process orders to calculate quantities and totalAmount
+    const ordersWithTotals = user.orders.map((order) => {
+      // Group items by productId to calculate quantities
+      const productQuantities = {};
+      order.items.forEach((item) => {
+        const productId = item.productId;
+        if (productQuantities[productId]) {
+          productQuantities[productId].quantity += 1;
+        } else {
+          productQuantities[productId] = {
+            product: item.product,
+            quantity: 1,
+          };
+        }
+      });
+
+      // Calculate totalAmount
+      const totalAmount = Object.values(productQuantities).reduce(
+        (sum, item) => sum + item.product.price * item.quantity,
+        0
+      );
+
+      return {
+        ...order,
+        totalAmount,
+        productQuantities: Object.values(productQuantities),
+      };
+    });
+
+    // Return user data with processed orders
+    return NextResponse.json({
+      ...user,
+      orders: ordersWithTotals,
+    });
   } catch (error) {
     console.error('Profile fetch error:', error);
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
 
 export async function PUT(request) {
     try {

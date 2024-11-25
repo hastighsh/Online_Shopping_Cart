@@ -4,7 +4,7 @@ import React, { useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Fugaz_One } from 'next/font/google';
-import { AuthContext } from '@/AuthContext'; // Import the AuthContext
+import { AuthContext } from '@/AuthContext'; // Import the AuthProvider to track authentication on local storage.
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
 
@@ -25,7 +25,6 @@ export default function Header() {
       <div className="flex items-center gap-4">
         <nav className="flex items-center gap-4">
           <Link href="/catalog">Catalog</Link>
-          {/* Add more links as needed */}
         </nav>
         <Link href="/cart" className="text-[#F67280] hover:underline">
           Cart

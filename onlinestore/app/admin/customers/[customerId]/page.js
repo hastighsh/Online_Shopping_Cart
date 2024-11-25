@@ -20,7 +20,6 @@ export default function CustomerPage() {
       fetchCustomer();
       fetchOrders();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customerId]);
 
   async function fetchCustomer() {
@@ -190,7 +189,7 @@ export default function CustomerPage() {
             }
           />
         </label>
-        {/* Credit Card Information Fields */}
+        {/*Credit Card Information Fields */}
         <h3>Credit Card Information</h3>
         <label>
           Card Holder:
@@ -210,7 +209,7 @@ export default function CustomerPage() {
           />
         </label>
         <label>
-          Card Last 4 Digits:
+          Card Number:
           <input
             type="text"
             value={customer.creditCard?.cardLast4 || ''}

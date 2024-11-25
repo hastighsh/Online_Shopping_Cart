@@ -20,7 +20,7 @@ export default function Profile() {
   };
 
   if (!isAuthenticated) {
-    return null; // Or a loading indicator
+    return null;
   }
 
   return (

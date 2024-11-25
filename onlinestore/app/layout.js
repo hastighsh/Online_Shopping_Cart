@@ -3,7 +3,8 @@
 import { Fugaz_One, Inter } from "next/font/google";
 import '/styles/globals.css';
 import Header from '@/components/Header';
-import { AuthProvider } from '@/AuthContext'; // Import the AuthProvider
+import { AuthProvider } from '@/AuthContext'; // Import the AuthProvider to track authentication on local storage.
+import { CartProvider } from '@/context/CartContext'; // Import the CartProvider to track cart on localstorage.
 
 const inter = Inter({ subsets: ["latin"] });
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
@@ -29,9 +30,11 @@ export default function RootLayout({ children }) {
         }
       >
         <AuthProvider>
-          <Header />
-          {children}
-          {footer}
+          <CartProvider>
+            <Header />
+            {children}
+            {footer}
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>

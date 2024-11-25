@@ -1,7 +1,7 @@
 // app/admin/layout.js
 
 import Link from 'next/link';
-import styles from './admin.module.css'; // Optional: If you're using CSS modules
+import styles from './admin.module.css'; 
 
 export const metadata = {
   title: 'Admin',

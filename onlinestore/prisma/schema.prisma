@@ -36,6 +36,7 @@ model Address {
   country           String
   users             User[]            @relation("UserShippingAddress")
   creditCards       CreditCardInfo[]  @relation("CreditCardBillingAddress")
+  orders            Order[]           @relation("OrderShippingAddress")
 }
 
 model CreditCardInfo {
@@ -50,13 +51,15 @@ model CreditCardInfo {
 }
 
 model Order {
-  id          Int           @id @default(autoincrement())
-  user        User          @relation(fields: [userId], references: [id])
-  userId      Int
-  status      String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  items       ProductItem[]
+  id                Int           @id @default(autoincrement())
+  user              User          @relation(fields: [userId], references: [id])
+  userId            Int
+  status            String
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  items             ProductItem[]
+  shippingAddress   Address       @relation("OrderShippingAddress", fields: [shippingAddressId], references: [id])
+  shippingAddressId Int           @default(1)
 }
 
 model ProductItem {
@@ -72,7 +75,7 @@ model Product {
   name        String
   description String
   price       Float
-  brand       String?
   category    String?
   productItems ProductItem[]
+  image       String @default("delete")
 }

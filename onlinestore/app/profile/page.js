@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
-import { AuthContext } from '@/AuthContext'; // Adjust the path
+import { AuthContext } from '@/AuthContext'; 
 import ProfileForm from '@/components/ProfileForm';
 import PurchaseHistory from '@/components/PurchaseHistory';
 

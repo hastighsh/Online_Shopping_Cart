@@ -1,6 +1,6 @@
 
 
-import prisma from '@/prisma/prisma'; // Adjust the import path based on your setup
+import prisma from '@/prisma/prisma'; 
 import bcrypt from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 

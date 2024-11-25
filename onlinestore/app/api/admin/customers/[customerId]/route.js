@@ -118,14 +118,14 @@ export async function PUT(request, context) {
           where: { id: creditCardData.id },
           data: {
             ...creditCardData,
-            billingAddress: undefined, // Remove nested object to prevent Prisma error
+            billingAddress: undefined, 
           },
         });
       } else {
         const newCreditCard = await prisma.creditCardInfo.create({
           data: {
             ...creditCardData,
-            billingAddress: undefined, // Remove nested object to prevent Prisma error
+            billingAddress: undefined, 
             billingAddressId: creditCardData.billingAddressId,
           },
         });
