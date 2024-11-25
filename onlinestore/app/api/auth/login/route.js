@@ -28,12 +28,12 @@ export async function POST(request) {
 
     // Generate a JWT token with the user's email
     const token = sign(
-      { userId: user.id, email: user.email },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: '1h',
-      }
-    );
+        { userId: user.id, email: user.email, isAdmin: user.isAdmin },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: '1h',
+        }
+      );
 
     // Send the token back to the client
     return new Response(JSON.stringify({ token }), {

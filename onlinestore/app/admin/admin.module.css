@@ -1,0 +1,56 @@
+/* admin.module.css */
+
+.adminContainer {
+    display: flex;
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9; /* Light background */
+  }
+  
+  .adminNav {
+    width: 250px;
+    background-color: #2c3e50; /* Darker background for sidebar */
+    color: #ecf0f1; /* Light text color */
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .adminNav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .adminNav li {
+    margin: 15px 0;
+  }
+  
+  .adminNav a {
+    color: #ecf0f1; /* Light text for links */
+    text-decoration: none;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+  }
+  
+  .adminNav a:hover {
+    color: #1abc9c; /* Highlight color on hover */
+  }
+  
+  .adminContent {
+    flex: 1; /* Fill remaining space */
+    padding: 20px;
+    background-color: #ffffff; /* White content area */
+    border-left: 1px solid #ddd;
+    overflow-y: auto;
+  }
+  
+  .adminContent h1 {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #34495e; /* Darker text for headers */
+  }
+
+  .active a {
+    color: #1abc9c;
+    font-weight: bold;
+  }

@@ -1,0 +1,40 @@
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .heading {
+    font-size: 2em;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .orderInfo {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+  }
+  
+  .orderInfo p {
+    margin: 10px 0;
+    font-size: 1.1em;
+  }
+  
+  .subheading {
+    margin-top: 30px;
+    font-size: 1.5em;
+  }
+  
+  .itemList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .item {
+    background-color: #fff;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }

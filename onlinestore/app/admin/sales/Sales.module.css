@@ -1,0 +1,126 @@
+
+
+.container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .title {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .filterForm {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin-bottom: 20px;
+    justify-content: center;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .formGroup label {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .formGroup input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .filterButton {
+    padding: 10px 20px;
+    background-color: #0070f3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .filterButton:hover {
+    background-color: #005bb5;
+  }
+  
+  .salesTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .salesTable th,
+  .salesTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .salesTable th {
+    background-color: #f2f2f2;
+  }
+  
+  .salesTable tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+  }
+  
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 600px;
+    width: 90%;
+    position: relative;
+  }
+  
+  .modal h3 {
+    margin-top: 0;
+  }
+  
+  .orderDetailsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .orderDetailsTable th,
+  .orderDetailsTable td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .orderDetailsTable th {
+    background-color: #f9f9f9;
+  }
+  
+  .closeButton {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #e00;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .closeButton:hover {
+    background-color: #c00;
+  }

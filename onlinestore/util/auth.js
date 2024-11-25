@@ -1,10 +1,16 @@
-import { verify } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 
 export function verifyToken(token) {
-  try {
-    const decoded = verify(token, process.env.JWT_SECRET);
-    return decoded;
-  } catch (error) {
-    throw new Error('Invalid token');
+  if (!token) {
+    throw new Error('Token is required');
   }
+  return jwt.verify(token, process.env.JWT_SECRET);
+}
+
+export function isAdmin(token) {
+  const decoded = verifyToken(token);
+  if (!decoded.isAdmin) {
+    throw new Error('Forbidden');
+  }
+  return decoded;
 }

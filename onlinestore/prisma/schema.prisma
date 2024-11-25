@@ -14,15 +14,16 @@ datasource db {
 }
 
 model User {
-  id                Int              @id @default(autoincrement())
-  username          String
-  email             String           @unique
-  password          String
-  shippingAddressId Int?
-  shippingAddress   Address?         @relation("UserShippingAddress", fields: [shippingAddressId], references: [id])
-  creditCardId      Int?
-  creditCard        CreditCardInfo?  @relation("UserCreditCard", fields: [creditCardId], references: [id])
-  orders            Order[]
+  id                 Int               @id @default(autoincrement())
+  username           String
+  email              String            @unique
+  password           String
+  isAdmin            Boolean           @default(false)
+  shippingAddressId  Int?
+  shippingAddress    Address?          @relation("UserShippingAddress", fields: [shippingAddressId], references: [id])
+  creditCardId       Int?
+  creditCard         CreditCardInfo?   @relation("UserCreditCard", fields: [creditCardId], references: [id])
+  orders             Order[]
   @@map("users")
 }
 
@@ -49,30 +50,29 @@ model CreditCardInfo {
 }
 
 model Order {
-  id          Int       @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
+  user        User          @relation(fields: [userId], references: [id])
   userId      Int
-  user        User      @relation(fields: [userId], references: [id])
-  items       OrderItem[]
-  totalAmount Float
   status      String
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  items       ProductItem[]
 }
 
-model OrderItem {
+model ProductItem {
   id        Int     @id @default(autoincrement())
-  orderId   Int
-  order     Order   @relation(fields: [orderId], references: [id])
-  productId Int
   product   Product @relation(fields: [productId], references: [id])
-  quantity  Int
-  price     Float
+  productId Int
+  order     Order?  @relation(fields: [orderId], references: [id])
+  orderId   Int?
 }
 
 model Product {
-  id          Int         @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   name        String
   description String
   price       Float
-  orderItems  OrderItem[]
+  brand       String?
+  category    String?
+  productItems ProductItem[]
 }

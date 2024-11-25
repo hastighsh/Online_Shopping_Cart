@@ -1,0 +1,13 @@
+
+
+.admin-container {
+  display: flex;
+}
+
+.admin-nav {
+  width: 200px;
+}
+
+.admin-content {
+  flex: 1;
+}
