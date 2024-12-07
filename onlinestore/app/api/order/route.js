@@ -41,7 +41,7 @@ export async function POST(request) {
     }
 
     // Create or find shipping address
-    const { id: shippingId, ...shippingAddressData } = shippingAddress;
+    let { id: shippingId, ...shippingAddressData } = shippingAddress;
     let shippingAddressRecord = await prisma.address.findFirst({
       where: shippingAddressData,
     });
@@ -61,6 +61,8 @@ export async function POST(request) {
         { status: 402 } // Payment Required
       );
     }
+
+    shippingId = shippingAddressRecord.id;
 
     // Create order
     const order = await prisma.order.create({

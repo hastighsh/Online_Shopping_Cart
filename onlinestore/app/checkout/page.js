@@ -29,7 +29,6 @@ export default function CheckoutPage() {
         try {
           const response = await fetch('/api/order/[orderId]/route');
           if (response.ok) {
-            const order = await response.json();
             router.push(`/OrderSummaryClient/${order.id}`);
           } else {
             console.error('Failed to fetch the latest order.');
