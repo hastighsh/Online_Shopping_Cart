@@ -9,7 +9,7 @@ export async function POST(request) {
     // Parse the request body as JSON
     const { email, password } = await request.json();
 
-    // Find the user by email
+    // Find the user by email, case sensitive
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
       return new Response(JSON.stringify({ error: 'Invalid email or password' }), {
