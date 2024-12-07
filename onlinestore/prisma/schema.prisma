@@ -1,3 +1,9 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,69 +14,68 @@ datasource db {
 }
 
 model User {
-  id                Int             @id @default(autoincrement())
-  email             String          @unique
-  password          String
-  username          String
-  creditCardId      Int?
-  shippingAddressId Int?
-  isAdmin           Boolean         @default(false)
-  orders            Order[]
-  creditCard        CreditCardInfo? @relation("UserCreditCard", fields: [creditCardId], references: [id])
-  shippingAddress   Address?        @relation("UserShippingAddress", fields: [shippingAddressId], references: [id])
-
+  id                 Int               @id @default(autoincrement())
+  username           String
+  email              String            @unique
+  password           String
+  isAdmin            Boolean           @default(false)
+  shippingAddressId  Int?
+  shippingAddress    Address?          @relation("UserShippingAddress", fields: [shippingAddressId], references: [id])
+  creditCardId       Int?
+  creditCard         CreditCardInfo?   @relation("UserCreditCard", fields: [creditCardId], references: [id])
+  orders             Order[]
   @@map("users")
 }
 
 model Address {
-  id          Int              @id @default(autoincrement())
-  street      String
-  city        String
-  postalCode  String
-  country     String
-  province    String
-  creditCards CreditCardInfo[] @relation("CreditCardBillingAddress")
-  orders      Order[]          @relation("OrderShippingAddress")
-  users       User[]           @relation("UserShippingAddress")
+  id                Int               @id @default(autoincrement())
+  street            String
+  city              String
+  province             String
+  postalCode        String
+  country           String
+  users             User[]            @relation("UserShippingAddress")
+  creditCards       CreditCardInfo[]  @relation("CreditCardBillingAddress")
+  orders            Order[]           @relation("OrderShippingAddress")
 }
 
 model CreditCardInfo {
-  id               Int      @id @default(autoincrement())
-  cardHolder       String
-  cardLast4        String
-  cardType         String
-  expiration       DateTime
-  billingAddressId Int
-  billingAddress   Address  @relation("CreditCardBillingAddress", fields: [billingAddressId], references: [id])
-  users            User[]   @relation("UserCreditCard")
+  id                Int               @id @default(autoincrement())
+  cardHolder        String
+  cardLast4         String
+  cardType          String
+  expiration        DateTime
+  billingAddressId  Int
+  billingAddress    Address           @relation("CreditCardBillingAddress", fields: [billingAddressId], references: [id])
+  users             User[]            @relation("UserCreditCard")
 }
 
 model Order {
   id                Int           @id @default(autoincrement())
+  user              User          @relation(fields: [userId], references: [id])
   userId            Int
   status            String
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
-  shippingAddressId Int           @default(1)
-  shippingAddress   Address       @relation("OrderShippingAddress", fields: [shippingAddressId], references: [id])
-  user              User          @relation(fields: [userId], references: [id])
   items             ProductItem[]
+  shippingAddress   Address       @relation("OrderShippingAddress", fields: [shippingAddressId], references: [id])
+  shippingAddressId Int           @default(1)
 }
 
 model ProductItem {
   id        Int     @id @default(autoincrement())
-  productId Int
-  orderId   Int?
-  order     Order?  @relation(fields: [orderId], references: [id])
   product   Product @relation(fields: [productId], references: [id])
+  productId Int
+  order     Order?  @relation(fields: [orderId], references: [id])
+  orderId   Int?
 }
 
 model Product {
-  id           Int           @id @default(autoincrement())
-  name         String
-  description  String
-  price        Float
-  category     String?
-  image        String        @default("delete")
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String
+  price       Float
+  category    String?
   productItems ProductItem[]
+  image       String @default("delete")
 }
