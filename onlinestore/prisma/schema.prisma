@@ -51,7 +51,7 @@ model Order {
   status            String
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
-  shippingAddressId Int           @default(1)
+  shippingAddressId Int
   shippingAddress   Address       @relation("OrderShippingAddress", fields: [shippingAddressId], references: [id])
   user              User          @relation(fields: [userId], references: [id])
   items             ProductItem[]

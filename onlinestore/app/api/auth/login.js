@@ -1,6 +1,4 @@
-
-
-import prisma from '@/prisma/prisma'; 
+import prisma from '@/prisma/prisma';
 import bcrypt from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
@@ -28,14 +26,22 @@ export async function POST(request) {
     }
 
     // Generate a JWT token
-    const token = sign({ userId: user.id }, process.env.JWT_SECRET, {
-      expiresIn: '1h',
-    });
+    const token = sign(
+        { userId: user.id, email: user.email, isAdmin: user.isAdmin },
+        process.env.JWT_SECRET,
+        { expiresIn: '1h' }
+    );
 
     // Send the token back to the client
-    return new Response(JSON.stringify({ token }), {
+    const headers = new Headers();
+    headers.append(
+        'Set-Cookie',
+        `token=${token}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=3600`
+    );
+
+    return new Response(JSON.stringify({ message: 'Login successful' }), {
       status: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers,
     });
   } catch (error) {
     console.error('Login error:', error);

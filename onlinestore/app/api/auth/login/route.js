@@ -30,10 +30,8 @@ export async function POST(request) {
     const token = sign(
         { userId: user.id, email: user.email, isAdmin: user.isAdmin },
         process.env.JWT_SECRET,
-        {
-          expiresIn: '1h',
-        }
-      );
+        { expiresIn: '1h' }
+    );
 
     // Send the token back to the client
     return new Response(JSON.stringify({ token }), {
@@ -47,4 +45,9 @@ export async function POST(request) {
       headers: { 'Content-Type': 'application/json' },
     });
   }
+  const headers = new Headers();
+  headers.append(
+      'Set-Cookie',
+      `token=${token}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=3600`
+  );
 }
