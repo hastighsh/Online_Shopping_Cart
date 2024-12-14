@@ -30,14 +30,16 @@ export default function Login() {
       const data = await response.json();
 
       if (response.ok) {
-        const token = data.token;
+        const { token, isAdmin } = data;
         // Use the login function from context
         login(token);
 
-        // Redirect the user to the home page or previous page
-        router.push('/');
+        if (isAdmin) {
+          router.push('/admin'); // redirect admin users to /admin
+        } else {
+          router.push('/'); // redirect non-admin users to /
+        }
       } else {
-        // Handle errors by displaying the error message
         setErrorMessage(data.error || 'Login failed. Please try again.');
       }
     } catch (error) {
@@ -76,7 +78,7 @@ export default function Login() {
         </div>
       </form>
       <div>
-        Don't have an account?{' '}
+        Don&#39;t have an account?{' '}
         <Link href="/signup">
           <span className='text-[#F67280] cursor-pointer'>Sign Up</span>
         </Link>
