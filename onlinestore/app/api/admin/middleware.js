@@ -19,7 +19,7 @@ export async function middleware(request) {
         const decoded = verify(token, process.env.JWT_SECRET);
         console.log('Decoded Token:', decoded);
 
-        // if the user is not an admin, redirect to the homepage - this is not working :(
+        // if the user is not an admin, redirect to the homepage
         if (!decoded.isAdmin && request.nextUrl.pathname.startsWith(adminOnlyPath)) {
             console.log('User is not an admin. Redirecting to /catalog...');
             const catalogUrl = request.nextUrl.clone();
