@@ -17,7 +17,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   const footer = (
     <footer className="p-4 sm:p-8 flex grid place-items-center">
-      <p className={'text-[#F67280] ' + fugaz.className}>Created by Jacob Abarrota...</p>
+      <p className={'text-[#F67280] ' + fugaz.className}></p>
     </footer>
   );
 
