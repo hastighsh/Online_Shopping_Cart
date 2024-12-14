@@ -37,7 +37,7 @@ export default function Login() {
         if (isAdmin) {
           router.push('/admin'); // redirect admin users to /admin
         } else {
-          router.push('/'); // redirect non-admin users to /
+          router.push('/catalog'); // redirect non-admin users to /
         }
       } else {
         setErrorMessage(data.error || 'Login failed. Please try again.');

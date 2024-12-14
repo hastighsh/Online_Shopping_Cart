@@ -21,10 +21,10 @@ export async function middleware(request) {
 
         // if the user is not an admin, redirect to the homepage - this is not working :(
         if (!decoded.isAdmin && request.nextUrl.pathname.startsWith(adminOnlyPath)) {
-            console.log('User is not an admin. Redirecting...');
-            const url = request.nextUrl.clone();
-            url.pathname = '/';
-            return NextResponse.redirect(url);
+            console.log('User is not an admin. Redirecting to /catalog...');
+            const catalogUrl = request.nextUrl.clone();
+            catalogUrl.pathname = '/catalog';
+            return NextResponse.redirect(catalogUrl);
         }
 
         // if the user is an admin, allow access
