@@ -6,6 +6,7 @@ import Button from './Button';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AuthContext } from '@/AuthContext'; // Import AuthContext
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const fugaz = Fugaz_One({ subsets: ["latin"], weight: ['400'] });
 
@@ -15,6 +16,11 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -62,19 +68,28 @@ export default function Login() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <input
-          className='w-full max-w-[400px] mx-auto px-3 duration-200 hover:border-[#F67280] focus:border-[#F67280] py-2 sm:py-3 border border-solid border-[#F8B195] rounded-full outline-none'
-          placeholder='Password'
-          type='password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="relative w-full max-w-[400px] mx-auto">
+          <input
+              className="w-full px-3 duration-200 hover:border-[#F67280] focus:border-[#F67280] py-2 sm:py-3 border border-solid border-[#F8B195] rounded-full outline-none"
+              placeholder="Password"
+              type={passwordVisible ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+          />
+          <div
+              onClick={togglePasswordVisibility}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+          >
+            {passwordVisible ? <FaEyeSlash size={20}/> : <FaEye size={20}/>}
+          </div>
+        </div>
+
         {errorMessage && (
-          <p className='text-red-500 text-center'>{errorMessage}</p>
+            <p className='text-red-500 text-center'>{errorMessage}</p>
         )}
         <div className="max-w-[400px] w-full mx-auto">
-          <Button text="Submit" full type="submit" />
+          <Button text="Submit" full type="submit"/>
         </div>
       </form>
       <div>
@@ -86,5 +101,5 @@ export default function Login() {
     </div>
   );
 
-  
+
 }
