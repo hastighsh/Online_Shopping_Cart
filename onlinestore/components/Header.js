@@ -46,15 +46,21 @@ export default function Header() {
 
   return (
     <header className="p-4 sm:p-8 flex items-center justify-between gap-4">
-      {isAdmin && isAuthenticated ? (
-        <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>
-          <Link href="/admin">REA Admin Panel</Link>
-        </h1>
+     {isAdmin && isAuthenticated ? (
+        // Admin panel appears for authenticated admin users
+       <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>
+          <Link href="/admin">Admin Panel</Link>
+      </h1> 
+      ) : isAuthenticated ? (
+       <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>
+        Enjoy shopping at REA
+      </h1>     // Doesn't need to lead anywhere for non-admin authenticated users
       ) : (
-        <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>
-          <Link href="/">REA</Link>
-        </h1>
-      )}
+  <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>
+    <Link href="/">REA</Link>
+  </h1>
+)}
+
       <div className="flex items-center gap-4">
         <nav className="flex items-center gap-4">
           <Link href="/catalog">Catalog</Link>
