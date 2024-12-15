@@ -49,7 +49,7 @@ export default function Header() {
      {isAdmin && isAuthenticated ? (
         // Admin panel appears for authenticated admin users
        <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>
-          <Link href="/admin">Admin Panel</Link>
+          <Link href="/admin">REA Admin Panel</Link>
       </h1> 
       ) : isAuthenticated ? (
        <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>
