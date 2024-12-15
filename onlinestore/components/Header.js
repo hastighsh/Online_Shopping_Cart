@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useContext } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Fugaz_One } from 'next/font/google';
@@ -12,6 +12,33 @@ export default function Header() {
   const router = useRouter();
   const { isAuthenticated, userEmail, logout } = useContext(AuthContext);
 
+  const [isAdmin, setIsAdmin] = useState(false); // State to store admin status
+
+  // Fetch user type from API when component mounts
+  useEffect(() => {
+    if (isAuthenticated && userEmail) {
+      const fetchUserType = async () => {
+        try {
+          const response = await fetch('/api/auth/usertype', {
+            method: 'POST', // Change to POST
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email: userEmail }), // Pass the user's email
+          });
+
+          const data = await response.json();
+          if (data.isAdmin !== undefined) {
+            setIsAdmin(data.isAdmin); // Set the admin status
+          }
+        } catch (error) {
+          console.error('Error fetching user type:', error);
+        }
+      };
+      fetchUserType();
+    }
+  }, [isAuthenticated, userEmail]);
+
   const handleLogout = () => {
     logout();
     router.push('/');
@@ -19,9 +46,15 @@ export default function Header() {
 
   return (
     <header className="p-4 sm:p-8 flex items-center justify-between gap-4">
-      <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>
-        <Link href="/">REA</Link>
-      </h1>
+      {isAdmin && isAuthenticated ? (
+        <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>
+          <Link href="/admin">REA Admin Panel</Link>
+        </h1>
+      ) : (
+        <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>
+          <Link href="/">REA</Link>
+        </h1>
+      )}
       <div className="flex items-center gap-4">
         <nav className="flex items-center gap-4">
           <Link href="/catalog">Catalog</Link>
