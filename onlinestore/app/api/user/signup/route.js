@@ -49,11 +49,11 @@ if (!username || !email || !password) {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create the new user
+    // Create the new user, email stored in db as lowercase so not case sensitive
     const newUser = await prisma.user.create({
       data: {
         username,
-        email,
+        email: email.toLowerCase(),
         password: hashedPassword,
       },
     });

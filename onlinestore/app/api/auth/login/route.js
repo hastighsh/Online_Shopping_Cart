@@ -8,8 +8,11 @@ export async function POST(request) {
   try {
     const {email, password} = await request.json();
 
+    // Convert email to all lowercase so prisma search is not case sensitive
+    const lowerCaseEmail = email.toLowerCase();
+
     // Find the user by email
-    const user = await prisma.user.findUnique({where: {email}});
+    const user = await prisma.user.findUnique({ where: { email: lowerCaseEmail } });
     if (!user) {
       return new Response(JSON.stringify({error: 'Invalid email or password'}), {
         status: 401,
