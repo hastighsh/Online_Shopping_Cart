@@ -30,12 +30,13 @@ export async function POST(request) {
         },
       });
 
-      if (item.quantity > availableCount) {
+      // fixed where user can't check out products at 0 inventory from first ever order
+      if (availableCount === 0 || item.quantity > availableCount) {
         return NextResponse.json(
-          {
-            error: `Not enough inventory for ${item.name}. Available: ${availableCount}`,
-          },
-          { status: 400 }
+            {
+              error: `Not enough inventory for ${item.name}. Available: ${availableCount}`,
+            },
+            { status: 400 }
         );
       }
     }
