@@ -31,20 +31,18 @@ export default async function ProductDetails({ params }) {
   });
 
   return (
-    <div className="p-4 max-w-4xl mx-auto">
-      <div className="flex flex-col md:flex-row gap-6">
-        {/* Product Image */}
-        <div className="w-full md:w-1/2">
-          <div className="relative w-full h-96">
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              sizes="100vw"
-              className="object-contain"
-            />
-          </div>
-        </div>
+    <div className="p-4 max-w-6xl mx-auto">
+    <div className="flex flex-col md:flex-row gap-6">
+      {/* Product Image */}
+      <div className="relative w-full md:w-1/2">
+        <Image
+          src={product.image}
+          alt={product.name}
+          layout="responsive"  // Responsive scaling of image
+          width={600}  
+          height={600}  
+        />
+      </div>
         {/* ProductDetails*/}
         <div className="w-full md:w-1/2">
           <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
