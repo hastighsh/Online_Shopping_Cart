@@ -49,11 +49,22 @@ export default function OrderSummaryClient({ orderId }) {
       <p><strong>Status:</strong> {orderDetails.status}</p>
       <p><strong>Total:</strong> ${orderDetails.totalAmount?.toFixed(2)}</p>
       <h2 className="text-xl font-bold mt-4">Items:</h2>
-      <ul>
-        {orderDetails.items.map((item) => (
-          <li key={item.id}>
-            {item.product.name} x {item.quantity} - ${item.product.price.toFixed(2)}
-          </li>
+      <ul> 
+      {orderDetails.items.reduce((acc, item) => {
+        const productId = item.product.id;
+        const existingItem = acc.find(i => i.productId === productId);
+
+        if (existingItem) {
+          existingItem.quantity += 1;
+        } else {
+          acc.push({ productId, productName: item.product.name, price: item.product.price, quantity: 1 });
+        }
+
+        return acc;
+      }, []).map((product) => (
+        <li key={product.productId}>
+          {product.productName} x {product.quantity} - ${product.price.toFixed(2)}
+        </li>
         ))}
       </ul>
     </div>
