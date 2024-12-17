@@ -53,7 +53,7 @@ export default function Header() {
       </h1> 
       ) : isAuthenticated ? (
        <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>
-        Enjoy shopping at REA
+        Shop with confidence at REA
       </h1>     // Doesn't need to lead anywhere for non-admin authenticated users
       ) : (
   <h1 className={'text-base sm:text-lg textGradient ' + fugaz.className}>
