@@ -92,7 +92,7 @@ export default function OrderSummaryClient({ orderId }) {
             </div>
                   <div>
                     <h3 className="text-lg font-semibold">{product.productName} x {product.quantity}</h3>
-                    <p className="text-gray-600">${product.price.toFixed(2)}</p>
+                    <p className="text-gray-600">${product.price.toFixed(2)} ea.</p>
                   </div>
                 </div>
                 </div>
