@@ -4,21 +4,7 @@ import { useEffect, useState } from 'react';
 
 export default function OrderSummaryClient({ orderId }) {
   const [orderDetails, setOrderDetails] = useState(null);
-  const [cardLast4, setCardLast4] = useState('');
 
-
-  useEffect(() => {
-    // Get cardLast4 from sessionStorage
-    const storedCardLast4 = sessionStorage.getItem('cardLast4');
-  
-    if (storedCardLast4 && storedCardLast4.length > 4) {
-      // Truncate to the last 4 digits if length is greater than 4
-      setCardLast4(storedCardLast4.slice(-4));
-    } else {
-      setCardLast4(storedCardLast4);
-    }
-  }, []);
-  
   useEffect(() => {
     async function fetchOrderDetails() {
       try {
@@ -60,7 +46,6 @@ export default function OrderSummaryClient({ orderId }) {
       <p>
         {orderDetails.shippingAddress.postalCode}, {orderDetails.shippingAddress.country}
       </p>
-      <p><strong>Card:</strong> **** **** **** {cardLast4} </p>
       <p><strong>Status:</strong> {orderDetails.status}</p>
       <p><strong>Total:</strong> ${orderDetails.totalAmount?.toFixed(2)}</p>
       <h2 className="text-xl font-bold mt-4">Items:</h2>
