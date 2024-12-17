@@ -16,9 +16,9 @@ export default function Hero() {
     const token = localStorage.getItem('token');
     if (token && typeof token === 'string') {
       try {
-        // Try decoding the token to check validity
+        // Try decoding the token to check validity i.e. if user is authenticated
         const decodedToken = jwtDecode(token);
-        // If the token is valid, redirect to the /catalog page
+        // If the token is valid i.e. user is authenticated, redirect to the /catalog page
         router.push("/catalog");
       } catch (error) {
         console.error('Could not decode token:', error);
