@@ -117,6 +117,7 @@ export default function CheckoutForm({ cartItems, userData }) {
         const orderResult = await orderResponse.json();
         if (orderResponse.ok) {
           // Clear cart and navigate to order summary
+          sessionStorage.setItem('cardLast4', billingInfo.cardLast4)
           clearCart();
           router.push(`/order-summary/${orderResult.orderId}`);
         } else {
