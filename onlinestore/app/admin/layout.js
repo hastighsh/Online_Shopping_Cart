@@ -27,6 +27,9 @@ export default function AdminLayout({ children }) {
             <li>
               <Link href="/admin/products">Product Management</Link>
             </li>
+            <li>
+              <Link href="/admin/add-products">Add Products</Link>
+            </li>
           </ul>
         </nav>
         <main className={styles.adminContent}>{children}</main>
