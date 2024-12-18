@@ -30,7 +30,7 @@ export default function AddProductsPage() {
     formDataToSend.append('category', formData.category);
   
     if (formData.image) {
-      formDataToSend.append('image', formData.image); // This sends the Base64 string or file
+      formDataToSend.append('image', formData.image); // This sends the Base64 string
     }
   
     try {
@@ -60,9 +60,9 @@ export default function AddProductsPage() {
       const file = files[0];
       const reader = new FileReader();
       reader.onloadend = () => {
-        setFormData({ ...formData, image: reader.result }); // Store the Base64 string
+        setFormData({ ...formData, image: reader.result }); // Store Base64 string
       };
-      reader.readAsDataURL(file); // Read the file as Base64
+      reader.readAsDataURL(file); // Read file as Base64
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -73,8 +73,7 @@ export default function AddProductsPage() {
     if (file) {
       const fileReader = new FileReader();
       fileReader.onloadend = () => {
-        // You can show an image preview if needed
-        console.log(fileReader.result); // For debugging: Log the preview data
+        console.log(fileReader.result); // Debugging - log the preview data
       };
       fileReader.readAsDataURL(file);
     }
@@ -188,6 +187,7 @@ export default function AddProductsPage() {
           </button>
         </div>
       </form>
+      <hr className="border-t-2 border-gray-300 mt-4" />
       <div className="flex justify-center mt-4">
       <h2>Add product quantity at <b><Link href="/admin/products">Product Management</Link> </b></h2>
       </div>
