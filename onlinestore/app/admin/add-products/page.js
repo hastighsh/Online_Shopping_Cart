@@ -189,7 +189,7 @@ export default function AddProductsPage() {
       </form>
       <hr className="border-t-2 border-gray-300 mt-4" />
       <div className="flex justify-center mt-4">
-      <h2>Add product quantity at <b><Link href="/admin/products">Product Management</Link> </b></h2>
+      <h2>Modify/add product quantity at <b><Link href="/admin/products">Product Management</Link> </b></h2>
       </div>
     </div>
   );
