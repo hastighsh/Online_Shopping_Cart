@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { apiFetch } from '@/util/apiClient';
 import styles from './Products.module.css';
+import Link from 'next/link';
 
 export default function AddProductsPage() {
   const [products, setProducts] = useState([]);
@@ -187,6 +188,9 @@ export default function AddProductsPage() {
           </button>
         </div>
       </form>
+      <div className="flex justify-center mt-4">
+      <h2>Add product quantity at <b><Link href="/admin/products">Product Management</Link> </b></h2>
+      </div>
     </div>
   );
 }
