@@ -71,10 +71,10 @@ export async function PUT(request, context) {
       updateData.email = data.email;
     }
 
-    if (data.password && typeof data.password === 'string') {
+    /*if (data.password && typeof data.password === 'string') {
       const hashedPassword = await hash(data.password, 10);
       updateData.password = hashedPassword;
-    }
+    }*/
 
     // Update shipping address if provided
     if (data.shippingAddress) {
